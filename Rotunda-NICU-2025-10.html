@@ -6,12 +6,18 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 2em; }
     pre { background: #f4f4f4; padding: 1em; border-radius: 6px; }
-    button { margin-bottom: 1em; }
+    .button-row { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1em; }
+    .button-row button { padding: 0.5em 0.75em; cursor: pointer; }
   </style>
 </head>
 <body>
   <h2>Rotunda NICU October 2025 SQL</h2>
-  <button onclick="copySQL()">Copy SQL</button>
+
+  <div class="button-row">
+    <button onclick="copySQL()">Copy SQL</button>
+    <button onclick="goBack()">Back</button>
+  </div>
+
   <pre id="sql">
 SELECT
         Clinician = PR.NAME_FULL_FORMATTED
@@ -75,7 +81,12 @@ WITH MAXREC = 1000, NOCOUNTER, SEPARATOR=" ", FORMAT(DATE, "DD-MM-YYYY"), TIME=3
       const sql = document.getElementById('sql').innerText;
       navigator.clipboard.writeText(sql).then(() => {
         alert('SQL code copied!');
+      }).catch(() => {
+        alert('Unable to copy to clipboard.');
       });
+    }
+    function goBack() {
+      window.history.back();
     }
   </script>
 </body>
